@@ -124,9 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const typingDiv = document.createElement('div');
         typingDiv.classList.add('message-container');
         typingDiv.innerHTML = `
-        const typingDiv = document.createElement('div');
-        typingDiv.classList.add('message-container');
-        typingDiv.innerHTML = `
             <div class="avatar bot-avatar">B</div>
             <div class="message bot-message typing">Ultar's Bot is Typing...</div>
         `;
