@@ -80,7 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
+            // Update the API endpoint to use Gemini 2.0 Flash
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2-flash:generateContent?key=${API_KEY}`;
+
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -144,4 +147,18 @@ document.addEventListener('DOMContentLoaded', () => {
             handleSendMessage();
         }
     };
+
+    // Improved mobile input handling
+    userInput.addEventListener('focus', () => {
+        if (isMobile()) {
+            setTimeout(() => {
+                window.scrollTo(0, document.body.scrollHeight);
+            }, 300);
+        }
+    });
+
+    // Helper function for mobile detection
+    function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
 });

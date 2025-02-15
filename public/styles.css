@@ -2,39 +2,39 @@
 
 @media screen and (max-width: 768px) {
     body {
-        position: fixed;
+        position: relative; /* Changed from fixed */
         width: 100%;
-        height: 100%;
-        overflow: hidden;
+        min-height: 100vh; /* Changed height to min-height */
+        overflow-x: hidden; /* Prevent horizontal scroll */
     }
 
     .container {
-        height: 100%;
+        height: auto; /* Changed to auto */
+        min-height: 100vh; /* Ensure full height */
         position: relative;
+        display: flex;
+        flex-direction: column;
     }
 
     .main-content {
-        height: 100%;
-        padding-bottom: 70px; /* Height of input container */
         flex: 1;
         display: flex;
         flex-direction: column;
         background-color: #343541;
-        justify-content: center; /* Add this */
+        justify-content: flex-start; /* Changed to flex-start */
+        padding-bottom: 70px; /* Height of input container */
     }
 
     .chat-container {
-        height: calc(100% - 70px);
+        height: auto; /* Changed to auto */
+        min-height: calc(100vh - 140px); /* Adjusted min-height */
         overflow-y: auto;
         padding-bottom: 20px;
         flex: 1;
-        padding: 20px;
-        overflow-y: auto;
-        color: white;
         display: flex;
         flex-direction: column;
-        align-items: center; /* Add this */
-        justify-content: center; /* Add this */
+        align-items: center;
+        justify-content: flex-start; /* Changed to flex-start */
     }
 
     .input-container {
@@ -60,18 +60,11 @@
         padding: 8px;
         min-height: 40px;
         max-height: 100px;
+        width: 100%; /* Added width */
     }
 
     .message {
         max-width: 85%;
-        position: relative;
-    }
-
-    .message-time {
-        font-size: 0.75em;
-        color: #a0a0a0;
-        margin-top: 5px;
-        text-align: right;
     }
 
     .preview-area {
@@ -81,7 +74,7 @@
     .welcome-message {
         text-align: center;
         width: 100%;
-        max-width: 600px; /* Add this */
+        max-width: 600px;
         padding: 20px;
     }
 
