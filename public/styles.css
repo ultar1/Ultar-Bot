@@ -1,0 +1,43 @@
+/* ...existing code... */
+
+@media screen and (max-width: 768px) {
+    .container {
+        height: calc(100vh - 60px); /* Account for mobile keyboard */
+    }
+
+    .sidebar {
+        display: none; /* Hide sidebar on mobile */
+    }
+
+    .input-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #343541;
+        padding: 10px;
+        z-index: 1000;
+    }
+
+    textarea {
+        font-size: 16px; /* Prevent zoom on iOS */
+        padding: 8px;
+        max-height: 100px;
+        overflow-y: auto;
+    }
+
+    .chat-container {
+        padding-bottom: 80px; /* Space for input container */
+    }
+
+    .message {
+        max-width: 85%; /* Wider messages on mobile */
+    }
+}
+
+/* Fix for iOS devices */
+@supports (-webkit-touch-callout: none) {
+    .container {
+        height: -webkit-fill-available;
+    }
+}

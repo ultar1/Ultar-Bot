@@ -1,48 +1,53 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</html></body>    <script src="script.js"></script>    </div>        </div>            </div>                </div>                    </button>                        </svg>                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>                        <svg width="24" height="24" viewBox="0 0 24 24">                    <button id="sendBtn">                    <textarea id="userInput" placeholder="Message Ultar Bot..." rows="1"></textarea>                    <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx,.txt" style="display: none;">                    </button>                        </svg>                            <path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>                        <svg width="24" height="24" viewBox="0 0 24 24">                    <button id="uploadBtn" class="upload-btn">                <div class="input-wrapper">                <div class="preview-area" id="previewArea"></div>            <div class="input-container">            </div>                </div>                    <p>Send a message to start chatting</p>                    <h1>Ultar Bot</h1>                <div class="welcome-message">            <div class="chat-container" id="chatContainer">        <div class="main-content">        </div>            </div>                <!-- Chat history items will be added here -->            <div class="chat-history" id="chatHistory">            </div>                <button id="newChatBtn">New Chat</button>            <div class="new-chat">        <div class="sidebar">    <div class="container"><body></head>    <link rel="stylesheet" href="styles.css">    <title>Ultar Bot</title>    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <meta charset="UTF-8"><head><html lang="en"><!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultar Bot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="new-chat">
+                <button id="newChatBtn">New Chat</button>
+            </div>
+            <div class="chat-history" id="chatHistory">
+                <!-- Chat history items will be added here -->
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="chat-container" id="chatContainer">
+                <div class="welcome-message">
+                    <h1>Ultar Bot</h1>
+                    <p>Send a message to start chatting</p>
+                </div>
+                <div class="input-container">
+                    <div class="preview-area" id="previewArea"></div>
+                    <div class="input-wrapper">
+                        <button id="uploadBtn" class="upload-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                            </svg>
+                        </button>
+                        <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx,.txt" style="display: none;">
+                        <textarea id="userInput" 
+                                placeholder="Message Ultar Bot..." 
+                                rows="1"
+                                autocomplete="off"
+                                autocorrect="on"
+                                spellcheck="true"
+                                inputmode="text"></textarea>
+                        <button id="sendBtn">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
