@@ -6,10 +6,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const userInput = document.getElementById('userInput');
     const sendBtn = document.getElementById('sendBtn');
 
-    // Basic send functionality
+    // Add date and time display
+    function updateDateTime() {
+        const now = new Date();
+        const dateTimeStr = now.toLocaleString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        
+        // Add timestamp to messages
+        const timestamp = now.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        return { dateTimeStr, timestamp };
+    }
+
+    // Update addMessage function to include timestamp
     function addMessage(text, sender) {
         const messageContainer = document.createElement('div');
         messageContainer.classList.add('message-container');
+
+        const { timestamp } = updateDateTime();
+
+        const messageContent = document.createElement('div');
+        messageContent.classList.add('message-content');
 
         const avatar = document.createElement('div');
         avatar.classList.add('avatar', `${sender}-avatar`);
@@ -17,7 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message', `${sender}-message`);
-        messageDiv.textContent = text;
+        
+        const textDiv = document.createElement('div');
+        textDiv.textContent = text;
+        
+        const timeDiv = document.createElement('div');
+        timeDiv.classList.add('message-time');
+        timeDiv.textContent = timestamp;
+
+        messageDiv.appendChild(textDiv);
+        messageDiv.appendChild(timeDiv);
 
         if (sender === 'user') {
             messageContainer.appendChild(messageDiv);
@@ -30,6 +65,26 @@ document.addEventListener('DOMContentLoaded', () => {
         chatContainer.appendChild(messageContainer);
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }
+
+    // Update welcome message to include date and time
+    function updateWelcomeMessage() {
+        const { dateTimeStr } = updateDateTime();
+        const username = localStorage.getItem('username') || 'Guest';
+        chatContainer.innerHTML = `
+            <div class="welcome-message">
+                <h1>Ultar Bot</h1>
+                <p>Welcome back, ${username}! 👋</p>
+                <p>${dateTimeStr}</p>
+                <p>How can I help you today?</p>
+            </div>
+        `;
+    }
+
+    // Initialize welcome message with date/time
+    updateWelcomeMessage();
+
+    // Update date/time every second
+    setInterval(updateWelcomeMessage, 1000);
 
     // Basic API call
     async function sendMessageToGemini(message) {
