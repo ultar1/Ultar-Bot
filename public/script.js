@@ -5,28 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const userInput = document.getElementById('userInput');
     const sendBtn = document.getElementById('sendBtn');
 
-    // Improved mobile input handling
-    userInput.addEventListener('focus', () => {
-        if (isMobile()) {
-            setTimeout(() => {
-                userInput.scrollIntoView({ behavior: 'smooth' });
-            }, 300);
-        }
-    });
-
-    // Fixed send message function
+    // Simplified send message function
     async function sendMessage() {
         const message = userInput.value.trim();
         if (!message) return;
 
-        // Add user message immediately
-        addMessage(message, 'user');
-
-        // Clear input
-        userInput.value = '';
-        userInput.style.height = 'auto';
-
         try {
+            // Add user message
+            addMessage(message, 'user');
+
+            // Clear input
+            userInput.value = '';
+
             // Show typing indicator
             const typingDiv = document.createElement('div');
             typingDiv.classList.add('message-container');
@@ -39,24 +29,38 @@ document.addEventListener('DOMContentLoaded', () => {
             // Get bot response
             const response = await sendMessageToGemini(message);
             
-            // Remove typing indicator
+            // Remove typing indicator and add response
             chatContainer.removeChild(typingDiv);
-            
-            // Add bot response
             addMessage(response, 'bot');
 
             // Scroll to bottom
             chatContainer.scrollTop = chatContainer.scrollHeight;
-
-            // Hide keyboard on mobile
-            if (isMobile()) {
-                userInput.blur();
-            }
         } catch (error) {
             console.error('Error:', error);
-            addMessage('Sorry, I encountered an error. Please try again.', 'bot');
         }
     }
+
+    // Event listeners
+    sendBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        sendMessage();
+    });
+
+    userInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+    // Improved mobile input handling
+    userInput.addEventListener('focus', () => {
+        if (isMobile()) {
+            setTimeout(() => {
+                userInput.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+    });
 
     // Simplified API call
     async function sendMessageToGemini(message) {
@@ -83,18 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
         return data.candidates[0].content.parts[0].text;
     }
-
-    // Updated event listeners
-    sendBtn.addEventListener('click', () => {
-        sendMessage();
-    });
-
-    userInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
-    });
 
     // File upload handling with error checking
     if (uploadBtn && fileInput) {
