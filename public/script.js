@@ -1,4 +1,10 @@
+const API_KEY = 'AIzaSyDsvDWz-lOhuGyQV5rL-uumbtlNamXqfWM';
+
 document.addEventListener('DOMContentLoaded', () => {
+    const chatContainer = document.getElementById('chatContainer');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+
     // Improved mobile input handling
     userInput.addEventListener('focus', () => {
         if (isMobile()) {
@@ -8,26 +14,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Send message function with simplified mobile handling
+    // Fixed send message function
     async function sendMessage() {
         const message = userInput.value.trim();
         if (!message) return;
 
+        // Add user message immediately
+        addMessage(message, 'user');
+
+        // Clear input
+        userInput.value = '';
+        userInput.style.height = 'auto';
+
         try {
-            // Add user message
-            addMessage(message, 'user');
-
-            // Clear input
-            userInput.value = '';
-            userInput.style.height = 'auto';
-
             // Show typing indicator
             const typingDiv = document.createElement('div');
-            typingDiv.classList.add('message', 'bot-message', 'typing');
-            typingDiv.textContent = 'Typing...';
+            typingDiv.classList.add('message-container');
+            typingDiv.innerHTML = `
+                <div class="avatar bot-avatar">B</div>
+                <div class="message bot-message typing">Typing...</div>
+            `;
             chatContainer.appendChild(typingDiv);
 
-            // Get response from API
+            // Get bot response
             const response = await sendMessageToGemini(message);
             
             // Remove typing indicator
@@ -45,13 +54,38 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Error:', error);
+            addMessage('Sorry, I encountered an error. Please try again.', 'bot');
         }
     }
 
-    // Event listeners with improved mobile support
-    sendBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    // Simplified API call
+    async function sendMessageToGemini(message) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: message
+                    }]
+                }]
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.candidates[0].content.parts[0].text;
+    }
+
+    // Updated event listeners
+    sendBtn.addEventListener('click', () => {
         sendMessage();
     });
 
