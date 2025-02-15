@@ -27,12 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return { dateTimeStr, timestamp };
     }
 
-    // Update addMessage function to include timestamp
+    // Update addMessage function to include local timestamp
     function addMessage(text, sender) {
         const messageContainer = document.createElement('div');
         messageContainer.classList.add('message-container');
 
-        const { timestamp } = updateDateTime();
+        const localTime = new Date().toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
 
         const messageContent = document.createElement('div');
         messageContent.classList.add('message-content');
@@ -49,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const timeDiv = document.createElement('div');
         timeDiv.classList.add('message-time');
-        timeDiv.textContent = timestamp;
+        timeDiv.textContent = localTime;
 
         messageDiv.appendChild(textDiv);
         messageDiv.appendChild(timeDiv);
@@ -66,28 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }
 
-    // Update welcome message to include date and time
-    function updateWelcomeMessage() {
-        const { dateTimeStr } = updateDateTime();
-        const username = localStorage.getItem('username') || 'Guest';
-        chatContainer.innerHTML = `
-            <div class="welcome-message">
-                <h1>Ultar Bot</h1>
-                <p>Welcome back, ${username}! 👋</p>
-                <p>${dateTimeStr}</p>
-                <p>How can I help you today?</p>
-            </div>
-        `;
-    }
+    // Add time-related keywords
+    const timeKeywords = ['time', 'date', 'clock', 'hour', 'minute', 'today', 'now'];
 
-    // Initialize welcome message with date/time
-    updateWelcomeMessage();
-
-    // Update date/time every second
-    setInterval(updateWelcomeMessage, 1000);
-
-    // Basic API call
+    // Update sendMessageToGemini function
     async function sendMessageToGemini(message) {
+        // Check if message is asking for time
+        if (timeKeywords.some(keyword => message.toLowerCase().includes(keyword))) {
+            return "I apologize, but I don't have real-time capabilities. Please check your device's clock for the current time and date.";
+        }
+
         try {
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
                 method: 'POST',
@@ -105,6 +96,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Simplified welcome message
+    function updateWelcomeMessage() {
+        const username = localStorage.getItem('username') || 'Guest';
+        chatContainer.innerHTML = `
+            <div class="welcome-message">
+                <h1>Ultar Bot</h1>
+                <p>Welcome back, ${username}! 👋</p>
+                <p>How can I help you today?</p>
+            </div>
+        `;
+    }
+
+    // Initialize welcome message
+    updateWelcomeMessage();
+
     // Send message handler
     async function handleSendMessage() {
         const message = userInput.value.trim();
@@ -115,6 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
         userInput.value = '';
 
         // Show typing indicator
+        const typingDiv = document.createElement('div');
+        typingDiv.classList.add('message-container');
+        typingDiv.innerHTML = `
         const typingDiv = document.createElement('div');
         typingDiv.classList.add('message-container');
         typingDiv.innerHTML = `
