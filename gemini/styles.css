@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: #202123;
+    padding: 10px;
+    color: white;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #343541;
+}
+
+.new-chat button {
+    width: 100%;
+    padding: 10px;
+    background-color: #343541;
+    color: white;
+    border: 1px solid #565869;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.chat-container {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.welcome-message {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.welcome-message h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.input-container {
+    padding: 20px;
+    background-color: #343541;
+    border-top: 1px solid #565869;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+textarea {
+    flex: 1;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #565869;
+    background-color: #40414f;
+    color: white;
+    resize: none;
+    font-size: 1em;
+}
+
+#sendBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+#sendBtn svg {
+    fill: #565869;
+}
+
+.message {
+    padding: 15px;
+    margin: 5px 0;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: #40414f;
+    align-self: flex-end;
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+}
+
+.bot-message {
+    background-color: #444654;
+    align-self: flex-start;
+    margin-right: auto;
+    border-bottom-left-radius: 4px;
+}
+
+.bot-message.typing {
+    color: #a0a0a0;
+    font-style: italic;
+}
+
+.message-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.bot-avatar {
+    background-color: #19c37d;
+}
+
+.user-avatar {
+    background-color: #7279d8;
+}
